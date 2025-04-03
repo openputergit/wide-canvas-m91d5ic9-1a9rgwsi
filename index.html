@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<style>
+    body {
+        font-family: 'Share Tech Mono', monospace;
+        background: #0a0a0a;
+        color: #00ff9d;
+    }
+    .orbitron {
+        font-family: 'Orbitron', sans-serif;
+    }
+    .neon-glow {
+        text-shadow: 0 0 5px #00ff9d, 0 0 10px #00ff9d, 0 0 15px #00ff9d;
+    }
+    .chat-container {
+        max-height: 300px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #00ff9d #1a1a1a;
+    }
+    .cyber-border {
+        border: 2px solid #00ff9d;
+        box-shadow: 0 0 10px #00ff9d;
+    }
+    .typing-animation::after {
+        content: '...';
+        animation: dots 1s steps(5, end) infinite;
+    }
+    @keyframes dots {
+        0%, 20% { content: '.'; }
+        40% { content: '..'; }
+        60%, 100% { content: '...'; }
+    }
+    .cyber-panel {
+        background: rgba(0, 255, 157, 0.05);
+        backdrop-filter: blur(10px);
+    }
+    .matrix-bg {
+        background: linear-gradient(45deg, #000000, #001a0d);
+    }
+</style>
+<body class="matrix-bg">
+    <!-- Navigation -->
+    <nav class="bg-black/90 border-b-2 border-[#00ff9d] sticky top-0 z-50 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl orbitron font-bold neon-glow">CYBER_DEV</h1>
+            <div class="space-x-6">
+                <a href="#about" class="hover:text-[#00ff9d] transition-colors">_ABOUT</a>
+                <a href="#projects" class="hover:text-[#00ff9d] transition-colors">_PROJECTS</a>
+                <a href="#register" class="hover:text-[#00ff9d] transition-colors">_REGISTER</a>
+                <a href="#chatbot" class="hover:text-[#00ff9d] transition-colors">_AI_INTERFACE</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="container mx-auto py-20 px-4">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl orbitron font-bold mb-6 neon-glow">PYTHON.BACKEND.DEV</h1>
+            <p class="text-xl mb-8">EXECUTING_ROBUST_SOLUTIONS.exe</p>
+            <button class="cyber-border bg-black/50 px-8 py-3 rounded hover:bg-[#00ff9d] hover:text-black transition-all">INITIALIZE_CONTACT</button>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="register" class="container mx-auto py-16 px-4">
+        <div class="max-w-lg mx-auto cyber-panel p-8 rounded-lg cyber-border">
+            <h2 class="text-2xl orbitron font-bold mb-6 text-center neon-glow">EVENT_REGISTRATION</h2>
+            <form id="registrationForm" class="space-y-4">
+                <div>
+                    <label class="block mb-2">USER_NAME</label>
+                    <input type="text" class="w-full bg-black/50 border-[#00ff9d] border-2 rounded p-2 focus:outline-none focus:border-[#00ff9d] focus:ring-1 focus:ring-[#00ff9d]" required>
+                </div>
+                <div>
+                    <label class="block mb-2">EMAIL_ADDRESS</label>
+                    <input type="email" class="w-full bg-black/50 border-[#00ff9d] border-2 rounded p-2 focus:outline-none focus:border-[#00ff9d] focus:ring-1 focus:ring-[#00ff9d]" required>
+                </div>
+                <div>
+                    <label class="block mb-2">ROLE</label>
+                    <select class="w-full bg-black/50 border-[#00ff9d] border-2 rounded p-2 focus:outline-none">
+                        <option>Developer</option>
+                        <option>Designer</option>
+                        <option>Project Manager</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full cyber-border bg-[#00ff9d] text-black font-bold py-2 rounded hover:bg-black hover:text-[#00ff9d] transition-all">SUBMIT_DATA</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Chatbot Section -->
+    <section id="chatbot" class="container mx-auto py-16 px-4">
+        <div class="max-w-lg mx-auto cyber-panel rounded-lg cyber-border overflow-hidden">
+            <div class="bg-black/80 p-4">
+                <h3 class="text-xl orbitron font-bold neon-glow">AI_INTERFACE v1.0</h3>
+            </div>
+            <div class="chat-container p-4" id="chatMessages">
+                <div class="mb-4">
+                    <div class="bg-black/50 cyber-border p-3 rounded-lg inline-block">
+                        SYSTEM_ONLINE: Query database initialized. Awaiting input...
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t border-[#00ff9d]">
+                <div class="flex gap-2">
+                    <input type="text" id="userInput" class="flex-1 bg-black/50 border-[#00ff9d] border-2 rounded p-2 focus:outline-none" placeholder="ENTER_QUERY...">
+                    <button onclick="sendMessage()" class="cyber-border bg-black/50 px-6 py-2 rounded hover:bg-[#00ff9d] hover:text-black transition-all">
+                        <i class="bi bi-send"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Registration Form Handler
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('REGISTRATION_SUCCESSFUL: Welcome to the network, user.');
+        });
+
+        // Chatbot Functions
+        function addMessage(message, isUser = false) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'mb-4 ' + (isUser ? 'text-right' : '');
+            messageDiv.innerHTML = `
+                <div class="${isUser ? 'bg-[#00ff9d] text-black' : 'bg-black/50 cyber-border'} p-3 rounded-lg inline-block">
+                    ${message}
+                </div>
+            `;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addTypingIndicator() {
+            const chatMessages = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'mb-4 typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="bg-black/50 cyber-border p-3 rounded-lg inline-block typing-animation">
+                    PROCESSING
+                </div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            return typingDiv;
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('userInput');
+            const message = userInput.value.trim();
+            
+            if (message) {
+                addMessage(message, true);
+                userInput.value = '';
+
+                const typingIndicator = addTypingIndicator();
+
+                setTimeout(() => {
+                    typingIndicator.remove();
+                    addMessage('PROCESSING_COMPLETE: Analyzing your query about industry specifications. Accessing database...');
+                }, 1000);
+            }
+        }
+
+        document.getElementById('userInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
